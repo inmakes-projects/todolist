@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block 'content' %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Edit Todo</h3>
+            <div class="card shadow p-3 mb-5 bg-body rounded">
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {{ form.name|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.priority|as_crispy_field }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.date|as_crispy_field }}
+                        </div>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <a href="{% url 'todo_app:details' todo.id %}" class="btn btn-secondary float-end">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock  %}

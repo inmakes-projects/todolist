@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block 'content' %}
+
+{% load static %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-body">
+                <form method="POST" action="/">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="txtName" class="form-label">Todo name</label>
+                        <input type="text" class="form-control" name="name" id="txtName" placeholder="Cleaning">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtPriority" class="form-label">Priority</label>
+                        <input type="text" class="form-control" name="priority" id="txtPriority" placeholder="1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtDate" class="form-label">Priority</label>
+                        <input type="date" class="form-control" name="date" id="txtDate" placeholder="1">
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        {% for todo in object_list %}
+            <div class="card mb-3 shadow p-3 bg-body rounded">
+                <div class="card-body">
+                    <h3>{{ todo.name }}</h3>
+                    <p class="text-muted">Priority: {{ todo.priority }}</p>
+                    <a href={% url 'todo_app:details' todo.id %}>View Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block 'scripts' %}
+    <script src="{% static 'js/todo.js' %}"></script>
+{% endblock  %}

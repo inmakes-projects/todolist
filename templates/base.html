@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Todo List Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  </head>
+  <body class="bg-light">
+    <main>
+      <div class="px-4 py-5 text-center bg-dark">
+        <h1 class="display-5 fw-bold text-white">My Todo's</h1>
+      </div>
+      <div class="container py-5">
+        {% block 'content' %}{% endblock  %}
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#198754"></rect></svg>
+              <strong class="me-auto">Hurray!!!</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              {{ message }}
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+          const toastLiveExample = document.getElementById('liveToast')
+          const toast = new bootstrap.Toast(toastLiveExample)
+          toast.show()
+        </script>
+      {% endif %}
+    {% endfor %}
+    {% block 'scripts' %}{% endblock  %}
+  </body>
+</html>

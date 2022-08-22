@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'content' %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card shadow p-3 mb-5 bg-body rounded">
+            <div class="card-body">
+              <h4 class="card-title">{{ todo.name }}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Priority: {{ todo.priority }}</h6>
+              <p class="card-text">Date: {{ todo.date }}</p>
+              <a href="{% url 'todo_app:edit' todo.id %}" class="card-link text-success">Edit</a>
+              <a href="javascript:void(0)" class="card-link text-danger" id="btnDelete">Mark As Done</a>
+              <a href="/" class="card-link">Home</a>
+              <form method="post" action="{% url 'todo_app:delete' todo.id %}" id="frmDeleteForm">
+                {% csrf_token %}
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block 'scripts' %}
+    <script src="{% static 'js/todo.js' %}"></script>
+{% endblock  %}
